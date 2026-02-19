@@ -3,6 +3,7 @@ from email.message import EmailMessage
 from email.message import EmailMessage
 
 import aiosmtplib
+import config
 
 
 
@@ -93,12 +94,13 @@ async def send_email(to: str, title: str, text: str):
     try:
         await aiosmtplib.send(
             message,
-            hostname="smtp.mail.ru",
-            port=587,
+            hostname="smtp.yandex.ru",  # ✅ Яндекс
+            port=465,                    # ✅ Яндекс использует 465
             username=config.EMAIL,
             password=config.PASSWORD_KEY,
-            start_tls=True,
+            use_tls=True,                # ✅ Яндекс требует SSL, не STARTTLS
         )
+
         print(f"[✔] Сообщение отправилось на почту {to}. Заголовок: {title}")
     except aiosmtplib.errors.SMTPDataError:
         print(f"[X] Сообщение не отправилось. Почты {to} не существует.")
