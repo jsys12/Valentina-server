@@ -1,7 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 from sqlalchemy import select
-from models import User, Valentine
 from datetime import datetime
 
 DATABASE_URL = "sqlite+aiosqlite:///./database.db"
@@ -41,9 +40,12 @@ async def get_db():
 #         await db.commit()
 #     return user
 
-async def create_valentine(db: AsyncSession, text: str, recipient_email: str, dispatch_date: datetime = datetime.now()):
-    valentine = Valentine(text = text, recipient_email = recipient_email, dispatch_date = dispatch_date)
+async def create_valentine(db: AsyncSession, text: str, recipient_email: str, dispatch_date: datetime = None):
+    from data.models import Valentine
+    if dispatch_date is None:
+        dispatch_date = datetime.now()
+    valentine = Valentine(text=text, recipient_email=recipient_email, dispatch_date=dispatch_date)
     db.add(valentine)
     await db.commit()
-    await db.refresh()
+    await db.refresh(valentine)
     return valentine

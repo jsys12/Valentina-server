@@ -2,6 +2,7 @@ from fastapi.responses import FileResponse
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from data.database import engine, Base
+import data.models  # noqa: F401 — регистрирует таблицы в Base
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
