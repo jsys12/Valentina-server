@@ -129,7 +129,7 @@ button:hover {
   resize: none;
 }
 
-.end-plate {
+.end_plate {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -142,13 +142,13 @@ button:hover {
   box-shadow: 0 10px 40px rgba(255, 71, 126, 0.3);
 }
 
-.end-plate .heart-wrapper {
+.end_plate .heart_wrapper {
   font-size: 48px;
   margin-bottom: 25px;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
 }
 
-.end-plate h3 {
+.end_plate h3 {
   color: #ffffff;
   font-size: 32px;
   font-weight: 700;
@@ -156,7 +156,7 @@ button:hover {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.end-plate p {
+.end_plate p {
   color: #ffffff;
   font-size: 16px;
   font-weight: 400;
