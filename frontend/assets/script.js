@@ -26,13 +26,15 @@ async function loadValentines() {
       card.classList.add("card");
 
       const date = val.dispatch_date
-        ? new Date(val.dispatch_date).toLocaleDateString("ru-RU")
+        ? new Date(val.dispatch_date).toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" })
         : "";
 
       card.innerHTML = `
         <p>❤️ ${val.text}</p>
-        <p class="author">— ${val.author_email}</p>
-        <p class="date">${date}</p>
+        <div class="card-footer">
+          <span class="author">— ${val.author_email}</span>
+          <span class="date">${date}</span>
+        </div>
       `;
 
       container.appendChild(card);
@@ -51,20 +53,9 @@ async function submitValentine() {
   const type = document.querySelector('input[name="type"]:checked').value;
   const isPublic = type === "public";
 
-  if (!text) {
-    alert("Введите текст валентинки 💌");
-    return;
-  }
-
-  if (!authorEmail) {
-    alert("Введите ваш email 💌");
-    return;
-  }
-
-  if (!recipientEmail) {
-    alert("Введите email получателя 💌");
-    return;
-  }
+  if (!text) { alert("Введите текст валентинки 💌"); return; }
+  if (!authorEmail) { alert("Введите ваш email 💌"); return; }
+  if (!recipientEmail) { alert("Введите email получателя 💌"); return; }
 
   const dispatch_date = new Date().toISOString().slice(0, 19).replace("T", " ");
 
@@ -82,18 +73,11 @@ async function submitValentine() {
   btn.textContent = "Отправляем...";
 
   try {
-    const res = await fetch(API_URL, {
-      method: "POST",
-      body: formData,
-    });
+    const res = await fetch(API_URL, { method: "POST", body: formData });
 
     if (res.ok) {
-      if (isPublic) {
-        responseMessage.innerText = "Валентинка опубликована 💕";
-      } else {
-        responseMessage.innerText = "Валентинка отправлена на почту 💌";
-      }
-      responseMessage.style.color = "green";
+      responseMessage.innerText = isPublic ? "Валентинка опубликована 💕" : "Валентинка отправлена на почту 💌";
+      responseMessage.style.color = "#d4185f";
 
       document.getElementById("message").value = "";
       document.getElementById("author_email").value = "";
@@ -103,12 +87,12 @@ async function submitValentine() {
     } else {
       const err = await res.json();
       responseMessage.innerText = "Ошибка: " + (err.detail || "Что-то пошло не так");
-      responseMessage.style.color = "red";
+      responseMessage.style.color = "#c0392b";
     }
 
   } catch (err) {
     responseMessage.innerText = "Ошибка соединения с сервером ⚠️";
-    responseMessage.style.color = "red";
+    responseMessage.style.color = "#c0392b";
   } finally {
     btn.disabled = false;
     btn.textContent = "Отправить 💌";
