@@ -2,17 +2,16 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, status
 
-from schemas import (
+from backend.app.schemas import (
     AllElementsResponseDTO,
     CreateEventDTO,
     CreateEventResponseDTO,
     ManagementEventsProtocol, # -
 )
-from services import get_event_service
+from backend.app.services import get_event_service
 
 
 router = APIRouter()
-
 
 @router.get(
     "",
@@ -24,7 +23,6 @@ async def list_events(
     service: Annotated[ManagementEventsProtocol, Depends(get_event_service)],
 ) -> list[AllElementsResponseDTO]:
     return await service.all_events()
-
 
 @router.post(
     "",

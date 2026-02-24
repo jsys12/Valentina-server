@@ -14,7 +14,7 @@ class ExceptionMiddleware(BaseHTTPMiddleware):
         except HTTPException:
             raise
 
-        # except Exception as e:
-        #     return JSONResponse(
-        #         {"message": "Ошибка. попробуйте позже."}, status_code=500
-        #     )
+        except Exception as e:
+            return JSONResponse(
+                {"message": "Ошибка. попробуйте позже."}, status_code=500
+            )

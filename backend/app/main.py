@@ -38,7 +38,7 @@ app.add_middleware(ExceptionMiddleware)
 app.add_middleware(AccessLogMiddleware)
 
 
-app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
+
 
 app.include_router(
     event.router,
@@ -46,7 +46,7 @@ app.include_router(
     tags=["Ручки для управления мероприятиями"],
 )
 
-
+app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
 # if __name__ == "__main__":
 #     uvicorn.run("main:app", reload=True)
 

@@ -40,7 +40,6 @@ class ManagementEvents:
             data.dispatch_date
         )
 
-        await send_valentine(data.recipient_email, data.text)
 
         return CreateEventResponseDTO.model_validate(event)
 

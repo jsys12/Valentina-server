@@ -6,7 +6,7 @@ authors = [
     {name = "Your Name",email = "you@example.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.11"
 dependencies = [
     "fastapi (>=0.129.0,<0.130.0)",
     "uvicorn (>=0.41.0,<0.42.0)",
@@ -15,7 +15,8 @@ dependencies = [
     "alembic (>=1.18.4,<2.0.0)",
     "aiosmtplib (>=5.1.0,<6.0.0)",
     "aiosqlite (>=0.22.1,<0.23.0)",
-    "pytest (>=9.0.2,<10.0.0)"
+    "pytest (>=9.0.2,<10.0.0)",
+    "python-multipart (>=0.0.22,<0.0.23)"
 ]
 
 
