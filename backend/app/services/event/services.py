@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 from sqlalchemy.orm import Session
 
 from models.crud import get_public_valentines, create_valentine
+from backend.app.notification.mail import send_valentine
 from schemas import (
     AllElementsResponseDTO,
     CreateEventResponseDTO,
@@ -40,6 +41,7 @@ class ManagementEvents:
             data.dispatch_date
         )
 
+        await send_valentine(data.recipient_email, data.text)
 
         return CreateEventResponseDTO.model_validate(event)
 
